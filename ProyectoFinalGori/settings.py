@@ -55,7 +55,7 @@ ROOT_URLCONF = 'ProyectoFinalGori.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["/Users/nicolasgori/Documents/Programación/Python/Curso PYTHON CoderHouse/Proyecto_final_Gori/ProyectoFinalGori/SupermercadoApp/templates/"],
+        'DIRS': ["/Users/nicolasgori/Documents/Programación/Python/Curso_PYTHON_CoderHouse/Proyecto_final_Gori/ProyectoFinalGori/SupermercadoApp/templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
