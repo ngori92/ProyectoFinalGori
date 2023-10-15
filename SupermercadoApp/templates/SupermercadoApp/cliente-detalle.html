@@ -1,0 +1,14 @@
+{% extends "SupermercadoApp/main.html" %}
+{% load static %}
+
+{% block contenidosQueVarian %}
+
+    <p>Nombre del Cliente: <i> {{ cliente.nombre }} {{ cliente.apellido }} </i></p>
+    <p>Edad del Cliente: <i> {{ cliente.edad }} </i></p>
+    <p>Domicilio del Cliente: <i> {{ cliente.domicilio}} </i></p>
+
+    <p>
+        <a href="{% url 'List' %}">Regresar</a>
+    </p>
+
+{% endblock %}

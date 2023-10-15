@@ -3,16 +3,23 @@
 
 {% block contenidosQueVarian %}
 <!-- About section-->
-<section id="about">
-    <div class="container px-4">
-        <div class="row gx-4 justify-content-center">
-            <div class="col-lg-8">
-                <h2>¡Bienvenido!</h2>
-                <p class="lead">Aquí encontrarás todo lo que necesites para tu hogar.</p>
-                <p class="lead">¡Gracias por visitar el sitio!</p>
+{% if request.user.is_authenticated %}
+    <section id="about">
+        <div class="container px-4">
+            <div class="row gx-4 justify-content-center">
+                <div class="col-lg-8">
+                    <img src="{{ url }}" height="40px">
+                    <h2>¡Bienvenido, {{user.username}}!</h2>
+                    <p class="lead">Visita nuestra tienda y conoce nuestros últimos productos.</p>
+                    <p class="lead">¡Gracias por visitar el sitio!</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+{% endif%}
+
+{% if form.errors %}
+<p style="color:red">{{ mensaje }}</p>
+{% endif %}
 
 {% endblock %}

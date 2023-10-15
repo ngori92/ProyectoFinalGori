@@ -1,0 +1,11 @@
+{% extends "SupermercadoApp/main.html" %}
+{% load static %}
+
+{% block contenidosQueVarian %}
+
+    <form method="POST"> {% csrf_token %}
+        ¿Estás seguro que deseas borrar al cliente "{{ object }}""?
+        <input type="submit" value="Eliminar">
+    </form>
+
+{% endblock %}

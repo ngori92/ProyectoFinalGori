@@ -1,0 +1,17 @@
+{% extends "SupermercadoApp/main.html" %}
+{% load static %}
+
+{% block contenidosQueVarian %}
+
+<h1>Editar perfil de "{{ user }}"</h1>
+
+<form action="" method="POST"> {% csrf_token %}
+    
+    <table>
+        {{ form.as_table}}
+    </table>
+
+    <input type="submit", value="Enviar">
+</form>
+
+{% endblock %}
