@@ -29,5 +29,8 @@ class UserEditForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ["email", "password1", "password2", "first_name", "last_name", "avatar"]
+        fields = ["email", "password1", "password2", "first_name", "last_name"]
         help_texts = {k:"" for k in fields}
+
+class AvatarFormulario(forms.Form):
+    avatar = forms.ImageField(required=True)

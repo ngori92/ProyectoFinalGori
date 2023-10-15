@@ -5,12 +5,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from SupermercadoApp.forms import *
 from SupermercadoApp.models import *
+from users.models import *
     
 # Create your views here.
 @login_required
 def inicio(request):
     
-    return render(request, "SupermercadoApp/index.html")
+    # avatares = Avatar.objects.filter(user=request.user.id)
+    return render(request, "SupermercadoApp/index.html")#, {"url": avatares[0].imagen.url})
 
 def about(request):
     return render(request, "SupermercadoApp/about.html")

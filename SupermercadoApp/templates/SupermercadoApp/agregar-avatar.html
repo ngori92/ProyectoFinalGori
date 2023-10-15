@@ -1,0 +1,15 @@
+{% extends "SupermercadoApp/main.html" %}
+{% load static %}
+
+{% block contenidosQueVarian %}
+<!-- About section-->
+<h3>Cargar avatar</h3>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+
+    <input type="submit" value="Actualizar avatar">
+</form>
+
+{% endblock %}

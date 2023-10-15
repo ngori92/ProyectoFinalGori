@@ -1,5 +1,5 @@
 from django.contrib.auth.context_processors import auth
-from .models import Avatar
+from users.models import Avatar
 
 def custom_user(request):
     context = auth(request)

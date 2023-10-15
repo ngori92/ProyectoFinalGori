@@ -56,12 +56,12 @@ def profileEdit(request):
     
     if request.method == "POST":
         
-        form = UserEditForm(request.POST)
+        form = UserEditForm(request.POST, request.FILES)
         
         if form.is_valid():
             
             informacion = form.cleaned_data
-            
+            print(f"\n\n {informacion} \n\n")
             usuario.email = informacion["email"]
             if informacion["password1"]:
                 usuario.set_password = informacion["password1"]
@@ -78,10 +78,32 @@ def profileEdit(request):
                 avatar.imagen = informacion["avatar"]
                 avatar.save()
 
-            return render(request, "AppCoder/index.html")
+            return render(request, "SupermercadoApp/index.html")
 
     
     else:
         form = UserEditForm(initial = {"email":usuario.email})
     
     return render(request, "SupermercadoApp/profile-edit.html", {"form": form, "user":usuario})
+
+# @login_required
+# def agregarAvatar(request):
+    form = AvatarFormulario(request.POST, request.FILES)
+    print(request.POST, request.FILES)
+    
+    if request.method == "POST":
+        
+        if form.is_valid():
+            
+            informacion = form.cleaned_data
+            u = User.objects.get(username = request.user)
+
+            avatar = Avatar(user=u, imagen=informacion["avatar"])
+            avatar.save()
+            
+            return render(request, "SupermercadoApp/index.html")
+        
+        else:
+            form = AvatarFormulario()
+        
+    return render(request, "SupermercadoApp/agregar-avatar.html", {"form":form})
