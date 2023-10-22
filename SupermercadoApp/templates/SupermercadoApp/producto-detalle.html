@@ -11,6 +11,8 @@
     <div class="card" style="width:20rem; margin:0 auto">
         {% if producto.imagen%}
             <img src="{{ producto.imagen.url }}" alt="" class="card-img-top">
+        {% else %}
+            <img src="../../../media/productos/producto_default.png" alt="" class="card-img-top">
         {% endif %}
         <h5>Producto: <i> {{ producto.nombre_producto }} {{ producto.tamanio }} </i></h5>
         <p>Categoría: <i> {{ producto.categoria }} </i></p>

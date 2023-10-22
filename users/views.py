@@ -39,6 +39,8 @@ def register(request):
         if form.is_valid():
             username = form.cleaned_data["username"]
             form.save()
+            
+        return render(request, "SupermercadoApp/index.html")
         
     else:
         form = UserRegisterForm()

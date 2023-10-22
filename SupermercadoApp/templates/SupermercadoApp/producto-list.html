@@ -28,7 +28,7 @@
                             {% endif %}    
                             <h5 class="card-title">{{ producto.nombre_producto }} {{ producto.tamanio }}</h5>
                             {% if request.user.is_authenticated %}
-                                <p class="card-text">Haz click en "Ver detalle" para ver más información.</p>
+                                <p class="card-text">Haz click en "Ver más" para acceder a toda la información.</p>
                                 <a href="{% url 'Producto_Detail' producto.id %}" class="btn btn-primary">Ver más</a>
                                     {% if request.user.is_staff %}
                                         <a href="{% url 'Producto_Edit' producto.id %}" class="btn btn-primary">Editar</a>

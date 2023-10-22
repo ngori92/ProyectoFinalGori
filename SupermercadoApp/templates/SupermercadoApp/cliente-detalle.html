@@ -10,6 +10,8 @@
         <div class="card" style="width:20rem; margin:0 auto">
             {% if cliente.imagen %}
                 <img src="{{ cliente.imagen.url }}" alt="" class="card-img-top">
+            {% else %}
+                <img src="../../../media/clientes/cliente_default.png" alt="" class="card-img-top">
             {% endif %}
             <h5>Nombre del Cliente: <i> {{ cliente.nombre }} {{ cliente.apellido }} </i></h5>
             <p>Edad del Cliente: <i> {{ cliente.edad }} </i></p>

@@ -32,7 +32,7 @@
                             {% endif %}
                             <h5 class="card-title">{{ proveedor.nombre }} {{ proveedor.rut }}</h5>
                             {% if request.user.is_authenticated %}
-                                <p class="card-text">Haz click en "Ver detalle" para ver más información.</p>
+                                <p class="card-text">Haz click en "Ver más" para acceder a toda la información.</p>
                                 <a href="{% url 'Proveedor_Detail' proveedor.id %}" class="btn btn-primary">Ver más</a>
                                     {% if request.user.is_staff %}
                                         <a href="{% url 'Proveedor_Edit' proveedor.id %}" class="btn btn-primary">Editar</a>

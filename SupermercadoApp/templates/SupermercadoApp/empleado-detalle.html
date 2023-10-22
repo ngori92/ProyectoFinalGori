@@ -11,6 +11,8 @@
     <div class="card" style="width:20rem; margin:0 auto">
         {% if empleado.imagen %}
             <img src="{{ empleado.imagen.url }}" alt="" class="card-img-top">
+        {% else %}
+            <img src="../../../media/empleados/empleado_default.png" alt="" class="card-img-top">
         {% endif %}
         <h5>Nombre del Empleado: <i> {{ empleado.nombre_empleado }} {{ empleado.apellido_empleado }} </i></h5>
         <p>Puesto: <i> {{ empleado.puesto }} </i></p>
