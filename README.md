@@ -17,3 +17,5 @@ Al ingresar con cuenta registrada como del staff mediante el admin de django, se
 - Acceder al botón "Editar" en cada una de las instancias de las clases, lo que nos permitirá modificar la información. Si probamos pegando el link del formulario de edición, el HTML tiene un IF que pide que si el usuario no está registrado como staff, no muestre el formulario, sino que muestra un mensaje pidiendo que contacte con el administrador del sitio.
 
 Al iniciar sesión, la web de inicio nos da un mensaje de bienvenida a partir de nuestro username.
+
+Video de demostración (perdón pero va sin audio porque estoy con problemas con el micrófono): https://youtu.be/QSrMhIaIkPY
