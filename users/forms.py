@@ -32,5 +32,3 @@ class UserEditForm(UserCreationForm):
         fields = ["email", "password1", "password2", "first_name", "last_name"]
         help_texts = {k:"" for k in fields}
 
-class AvatarFormulario(forms.Form):
-    avatar = forms.ImageField(required=True)

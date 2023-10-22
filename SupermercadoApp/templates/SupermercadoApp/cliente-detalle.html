@@ -1,14 +1,25 @@
 {% extends "SupermercadoApp/main.html" %}
 {% load static %}
 
+{% block titulo %}
+    <h1 class="fw-bolder">Detalles del cliente: {{ cliente.nombre }} {{cliente.apellido}}</h1>
+{% endblock %}
+
 {% block contenidosQueVarian %}
-
-    <p>Nombre del Cliente: <i> {{ cliente.nombre }} {{ cliente.apellido }} </i></p>
-    <p>Edad del Cliente: <i> {{ cliente.edad }} </i></p>
-    <p>Domicilio del Cliente: <i> {{ cliente.domicilio}} </i></p>
-
-    <p>
-        <a href="{% url 'List' %}">Regresar</a>
-    </p>
+    <div class="text-center">
+        <div class="card" style="width:20rem; margin:0 auto">
+            {% if cliente.imagen %}
+                <img src="{{ cliente.imagen.url }}" alt="" class="card-img-top">
+            {% endif %}
+            <h5>Nombre del Cliente: <i> {{ cliente.nombre }} {{ cliente.apellido }} </i></h5>
+            <p>Edad del Cliente: <i> {{ cliente.edad }} </i></p>
+            <p>Domicilio del Cliente: <i> {{ cliente.domicilio}} </i></p>
+        </div>
+        
+        <p>
+            <a href="{% url 'Clientes_List' %}">Regresar</a>
+        </p>
+    </div>
+    
 
 {% endblock %}

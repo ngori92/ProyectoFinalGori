@@ -1,0 +1,27 @@
+{% extends "SupermercadoApp/main.html" %}
+{% load static %}
+
+{% block titulo %}
+    {% if producto %}
+        <h1 class="fw-bolder">Editar detalles del producto:
+             {% if producto.imagen%}
+                <img style="display: inline;" height="60" src="{{ producto.imagen.url }}">
+             {% endif %}
+             {{ producto.nombre_producto }} - {{ producto.tamanio }}</h1>
+    {% else %}
+        <h1 class="fw-bolder">Creando un nuevo producto.</h1>
+    {% endif %}
+{% endblock %}
+
+{% block contenidosQueVarian %}
+
+    {% if request.user.is_staff %}
+        <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Enviar">
+        </form>
+    {% else %}
+        <p class="lead">No tienes permiso para ver este formulario. Contacta al administrador del sitio.</p>
+    {% endif %}
+
+{% endblock %}

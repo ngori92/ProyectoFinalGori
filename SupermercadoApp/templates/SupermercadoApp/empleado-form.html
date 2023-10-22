@@ -1,0 +1,18 @@
+{% extends "SupermercadoApp/main.html" %}
+{% load static %}
+
+{% block titulo %}
+    <h1 class="fw-bolder">Editar detalles del empleado: {{ empleado.nombre_empleado }} {{empleado.apellido_empleado}}</h1>
+{% endblock %}
+
+{% block contenidosQueVarian %}
+    {% if request.user.is_staff %}
+    <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Enviar">
+    </form>
+    {% else %}
+    <p class="lead">No tienes permiso para ver este formulario. Contacta al administrador del sitio.</p>
+    {% endif %}
+    
+{% endblock %}

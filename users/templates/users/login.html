@@ -1,0 +1,23 @@
+{% extends "SupermercadoApp/main.html" %}
+{% load static %}
+
+{% block titulo %}
+    <h1 class="fw-bolder">Inicia sesión</h1>
+{% endblock %}
+
+{% block contenidosQueVarian %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit"> Iniciar sesión</button>
+    
+</form>
+
+{% if form.errors %}
+    <p style="color:red">{{ mensaje }}</p>
+{% endif %}
+
+{% endblock %}

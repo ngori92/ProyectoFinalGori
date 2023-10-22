@@ -1,0 +1,19 @@
+{% extends "SupermercadoApp/main.html" %}
+{% load static %}
+
+{% block titulo %}
+    <h1 class="fw-bolder">Editando detalles del usuario: {{ user }}</h1>
+{% endblock %}
+
+{% block contenidosQueVarian %}
+
+<form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    
+    <table>
+        {{ form.as_table}}
+    </table>
+
+    <input type="submit", value="Enviar">
+</form>
+
+{% endblock %}

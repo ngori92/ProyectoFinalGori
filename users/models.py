@@ -9,4 +9,9 @@ class Avatar(models.Model):
     imagen = models.ImageField(upload_to='imagenes', null=True, blank = True)
 
     def __str__(self):
-        return f"{settings.MEDIA_URL}{self.imagen}"
+        if self.imagen:
+            print("\n\n IMAGEN \n\n")
+            return f"{settings.MEDIA_URL}{self.imagen}"
+        else:
+            print(f"\n\n\n {settings.MEDIA_URL}'default_avatar.jpeg' \n\n\n")
+            return f"{settings.MEDIA_URL}'default_avatar.jpeg"

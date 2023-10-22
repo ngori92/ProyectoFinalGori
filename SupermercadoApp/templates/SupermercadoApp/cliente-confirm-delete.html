@@ -1,6 +1,10 @@
 {% extends "SupermercadoApp/main.html" %}
 {% load static %}
 
+{% block titulo %}
+    <h1 class="fw-bolder">Confirmar eliminar cliente.</h1>
+{% endblock %}
+
 {% block contenidosQueVarian %}
 
     <form method="POST"> {% csrf_token %}

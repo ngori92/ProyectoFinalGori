@@ -8,169 +8,122 @@ from SupermercadoApp.models import *
 from users.models import *
     
 # Create your views here.
-@login_required
+
 def inicio(request):
-    
-    # avatares = Avatar.objects.filter(user=request.user.id)
-    return render(request, "SupermercadoApp/index.html")#, {"url": avatares[0].imagen.url})
+    return render(request, "SupermercadoApp/index.html")
 
 def about(request):
     return render(request, "SupermercadoApp/about.html")
-
-# def login_request(request):
-    
-#     if request.method == "POST":
-#         form = AuthenticationForm(request, data = request.POST)
-        
-#         if form.is_valid():
-#             usuario = form.cleaned_data.get("username")
-#             contra = form.cleaned_data.get("password")
-            
-#             user = authenticate(username = usuario, password = contra)
-            
-#             if user is not None:
-#                 login(request, user)
-                
-#                 return render(request, "SupermercadoApp/index.html", {"mensaje":f"Bienvenido {usuario}!"})
-#             else:
-                
-#                 return render(request, "SupermercadoApp/index.html", {"mensaje":"Error, datos incorrectos."})
-            
-#         else:
-            
-#             return render(request, "SupermercadoApp/index.html", {"mensaje": "Error en el formulario."})
-
-#     form = AuthenticationForm()
-    
-#     return render(request, "SupermercadoApp/login.html", {"form": form})
-
-# def register(request):
-    
-#     if request.method == "POST":
-        
-#         form = UserRegisterForm(request.POST)
-        
-#         if form.is_valid():
-#             username = form.cleaned_data["username"]
-#             form.save()
-#             return render(request, "SupermercadoApp/index.html", {"mensaje":f"Usuario '{username}' creado con éxito."})
-        
-#     else:
-#         form = UserRegisterForm()
-        
-#     return render(request, "SupermercadoApp/register.html", {"form":form})
-
-# def profileEdit(request):
-    
-    user = request.user
-    
-    if request.method == "POST":
-        form = UserEditForm(request.POST)
-        if form.is_valid():
-            
-            informacion = form.cleaned_data
-            
-            user.email = informacion["email"]
-            user.password1 = informacion["password1"]
-            user.password2 = informacion["password1"]
-            user.save()
-            
-            return render(request, "SupermercadoApp/index.html")
-    
-    else:
-        form = UserEditForm(initial = {"email":user.email})
-    
-    return render(request, "SupermercadoApp/profile-edit.html", {"form": form, "user":user})
-            
-     
-def proveedores(request):
-    return render(request, "SupermercadoApp/proveedores.html")
-
-def formularioProveedores(request):
-    
-    if request.method == "POST":
-        
-        formularioProveedor = ProveedorFormulario(request.POST)
-        
-        if formularioProveedor.is_valid():
-            
-            informacion = formularioProveedor.cleaned_data
-            proveedor = Proveedor(nombre = informacion["nombre"], rut = informacion["rut"], categoria_producto = informacion["categoria_producto"], domicilio = informacion["domicilio"])
-            proveedor.save()
-            return render(request, "SupermercadoApp/index.html")
-        
-    else: 
-        formularioProveedor = ProveedorFormulario()
-        
-    return render(request, "SupermercadoApp/formulario-proveedores.html", {"formularioProveedor": formularioProveedor})
-
-def productos(request):
-    return render(request, "SupermercadoApp/productos.html")
-
-def formularioProductos(request):
-    
-    if request.method == "POST":
-        
-        formularioProducto = ProductoFormulario(request.POST)
-        
-        if formularioProducto.is_valid():
-            
-            informacion = formularioProducto.cleaned_data
-            producto = Producto(nombre_producto = informacion["nombre_producto"], categoria_producto = informacion["categoria_producto"], tamanio = informacion["tamanio"], precio = informacion["precio"])
-            producto.save()
-            return render(request, "SupermercadoApp/index.html")
-        
-    else: 
-        formularioProducto = ProductoFormulario()
-        
-    return render(request, "SupermercadoApp/formulario-productos.html", {"formularioProducto": formularioProducto})
-    
-def empleados(request):
-    return render(request, "SupermercadoApp/empleados.html")
-
-def formularioEmpleados(request):
-    
-    if request.method == "POST":
-        
-        formularioEmpleado = EmpleadoFormulario(request.POST)
-        
-        if formularioEmpleado.is_valid():
-            
-            informacion = formularioEmpleado.cleaned_data
-            empleado = Empleado(nombre_empleado = informacion["nombre_empleado"], apellido_empleado = informacion["apellido_empleado"], puesto = informacion["puesto"], salario = informacion["salario"], numero_identidad = informacion["numero_identidad"])
-            empleado.save()
-            return render(request, "SupermercadoApp/index.html")
-        
-    else: 
-        formularioEmpleado = EmpleadoFormulario()
-        
-    return render(request, "SupermercadoApp/formulario-empleados.html", {"formularioEmpleado": formularioEmpleado})
-
+  
 class ClienteList(ListView):
     
     model = Cliente
     template_name = "SupermercadoApp/cliente-list.html"
 
-class ClienteDetalle(DetailView):
+class ClienteDetalle(LoginRequiredMixin, DetailView):
     
     model = Cliente
     template_name = "SupermercadoApp/cliente-detalle.html"
     
-class ClienteCreacion(CreateView):
+class ClienteCreacion(LoginRequiredMixin, CreateView):
     
     model = Cliente
     template_name = "SupermercadoApp/cliente-form.html"
-    success_url = reverse_lazy("List")
-    fields = ["nombre", "apellido", "edad", "domicilio"]
+    success_url = reverse_lazy("Clientes_List")
+    fields = ["nombre", "apellido", "edad", "domicilio", "imagen"]
     
-class ClienteUpdate(UpdateView):
+class ClienteUpdate(LoginRequiredMixin, UpdateView):
     model = Cliente
     template_name = "SupermercadoApp/cliente-form.html"
-    success_url = reverse_lazy("List")
-    fields = ["nombre", "apellido", "edad", "domicilio"]
+    success_url = reverse_lazy("Clientes_List")
+    fields = ["nombre", "apellido", "edad", "domicilio", "imagen"]
 
-class ClienteDelete(DeleteView):
+class ClienteDelete(LoginRequiredMixin, DeleteView):
     
     model = Cliente
     template_name = "SupermercadoApp/cliente-confirm-delete.html"
-    success_url = reverse_lazy("List")
+    success_url = reverse_lazy("Clientes_List")
+    
+class ProveedorList(ListView):
+    model = Proveedor
+    template_name = "SupermercadoApp/proveedor-list.html"
+    
+class ProveedorDetalle(LoginRequiredMixin, DetailView):
+    
+    model = Proveedor
+    template_name = "SupermercadoApp/proveedor-detalle.html"
+    
+class ProveedorCreacion(LoginRequiredMixin, CreateView):
+    
+    model = Proveedor
+    template_name = "SupermercadoApp/proveedor-form.html"
+    success_url = reverse_lazy("Proveedores_List")
+    fields = ["nombre", "rut", "categoria_producto", "domicilio", "imagen"]
+    
+class ProveedorUpdate(LoginRequiredMixin, UpdateView):
+    model = Proveedor
+    template_name = "SupermercadoApp/proveedor-form.html"
+    success_url = reverse_lazy("Proveedores_List")
+    fields = ["nombre", "rut", "categoria_producto", "domicilio", "imagen"]
+
+class ProveedorDelete(LoginRequiredMixin, DeleteView):
+    
+    model = Proveedor
+    template_name = "SupermercadoApp/proveedor-confirm-delete.html"
+    success_url = reverse_lazy("Proveedores_List")
+    
+class ProductoList(ListView):
+    model = Producto
+    template_name = "SupermercadoApp/producto-list.html"
+    
+class ProductoDetalle(LoginRequiredMixin, DetailView):
+    
+    model = Producto
+    template_name = "SupermercadoApp/producto-detalle.html"
+    
+class ProductoCreacion(LoginRequiredMixin, CreateView):
+    
+    model = Producto
+    template_name = "SupermercadoApp/producto-form.html"
+    success_url = reverse_lazy("Productos_List")
+    fields = ["nombre_producto", "categoria", "tamanio", "precio", "imagen"]
+    
+class ProductoUpdate(LoginRequiredMixin, UpdateView):
+    model = Producto
+    template_name = "SupermercadoApp/producto-form.html"
+    success_url = reverse_lazy("Productos_List")
+    fields = ["nombre_producto", "categoria", "tamanio", "precio", "imagen"]
+
+class ProductoDelete(LoginRequiredMixin, DeleteView):
+    
+    model = Producto
+    template_name = "SupermercadoApp/producto-confirm-delete.html"
+    success_url = reverse_lazy("Productos_List")
+    
+class EmpleadoList(ListView):
+    model = Empleado
+    template_name = "SupermercadoApp/empleado-list.html"
+    
+class EmpleadoDetalle(LoginRequiredMixin, DetailView):
+    
+    model = Empleado
+    template_name = "SupermercadoApp/empleado-detalle.html"
+    
+class EmpleadoCreacion(LoginRequiredMixin, CreateView):
+    
+    model = Empleado
+    template_name = "SupermercadoApp/empleado-form.html"
+    success_url = reverse_lazy("Empleados_List")
+    fields = ["nombre_empleado", "apellido_empleado", "puesto", "sueldo", "numero_identidad", "imagen"]
+    
+class EmpleadoUpdate(LoginRequiredMixin, UpdateView):
+    model = Empleado
+    template_name = "SupermercadoApp/empleado-form.html"
+    success_url = reverse_lazy("Empleados_List")
+    fields = ["nombre_empleado", "apellido_empleado", "puesto", "sueldo", "numero_identidad"]
+
+class EmpleadoDelete(LoginRequiredMixin, DeleteView):
+    
+    model = Empleado
+    template_name = "SupermercadoApp/empleado-confirm-delete.html"
+    success_url = reverse_lazy("Empleados_List")

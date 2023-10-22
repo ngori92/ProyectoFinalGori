@@ -1,0 +1,26 @@
+{% extends "SupermercadoApp/main.html" %}
+{% load static %}
+
+{% block titulo %}
+    <h1 class="fw-bolder">Detalles del proveedor: {{ proveedor.nombre }} - {{proveedor.rut}}</h1>
+{% endblock %}
+
+{% block contenidosQueVarian %}
+
+<div class="text-center">
+    <div class="card" style="width:20rem; margin:0 auto">
+        {% if proveedor.imagen%}
+            <img src="{{ proveedor.imagen.url }}" alt="" class="card-img-top">
+        {% endif %}
+        <h5>Proveedor: <i> {{ proveedor.nombre }}</i></h5>
+        <p>RUT: {{ proveedor.rut }}</i></p>
+        <p>Categoría: <i> {{ proveedor.categoria_producto }} </i></p>
+        <p>Domicilio: <i> {{ proveedor.domicilio}} </i></p>
+    </div>
+    
+    <p>
+        <a href="{% url 'Proveedores_List' %}">Regresar</a>
+    </p>
+</div>
+
+{% endblock %}

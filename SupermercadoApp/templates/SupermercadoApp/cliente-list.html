@@ -1,24 +1,51 @@
 {% extends "SupermercadoApp/main.html" %}
 {% load static %}
 
+{% block titulo %}
+    <h1 class="fw-bolder">¡Conoce a nuestros principales clientes!</h1>
+{% endblock %}
+
 {% block contenidosQueVarian %}
 
-    <h2>Clientes del supermercado:</h2>
-    <ul>
-        {% for cliente in object_list %}
-
-            <li>
-                <p>
-                    Nombre completo: {{ cliente.nombre }} {{ cliente.apellido }} | 
-                    <a href="{% url 'Detail' cliente.id %}">Ver</a> |
-                    <a href="{% url 'Edit' cliente.id %}">Editar</a> |
-                    <a href="{% url 'Delete' cliente.id %}">Borrar</a>
-                </p>
-            </li>
-        {% endfor %}
-        <p>
-            <a href="{% url 'New'  %}">¡Agregar un nuevo cliente!</a>
+    {% if request.user.is_staff %}
+        <p class="">
+            <a href="{% url 'Cliente_New'  %}">¡Agregar un nuevo cliente!</a>
         </p>
+    {% endif %}
+    
+    <ul>
+
+        <div class="row row-cols-1 row-cols-md-5 g-4">
+            {% for cliente in object_list %}
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            {% if request.user.is_authenticated %}
+                                {% if cliente.imagen %}
+                                    <img src="{{ cliente.imagen.url }}" height="300em" alt="" class="card-img-top">
+                                {% else %}
+                                    <img src="../../media/clientes/cliente_default.png" height="300em" alt="" class="card-img-top">
+                                {% endif %}    
+                            {% else %}
+                                <img src="../../media/clientes/cliente_default.png" height="300em" alt="" class="card-img-top">
+                            {% endif %}
+                            <h5 class="card-title">{{ cliente.nombre }} {{ cliente.apellido }}</h5>
+                            {% if request.user.is_authenticated %}
+                                <p class="card-text">Haz click en "Ver detalle" para ver más información.</p>
+                                <a href="{% url 'Cliente_Detail' cliente.id %}" class="btn btn-primary">Ver más</a>
+                                    {% if request.user.is_staff %}
+                                        <a href="{% url 'Cliente_Edit' cliente.id %}" class="btn btn-primary">Editar</a>
+                                        <a href="{% url 'Cliente_Delete' cliente.id %}" class="btn btn-secondary">Borrar</a>
+                                    {% endif %}
+                                {% else %}
+                                <p class="card-text">Iniciando sesión puedes acceder a más información.</p>
+                            {% endif %}                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
     </ul>
 
 {% endblock %}

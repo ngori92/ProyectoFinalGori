@@ -1,0 +1,48 @@
+{% extends "SupermercadoApp/main.html" %}
+{% load static %}
+
+{% block titulo %}
+    <h1 class="fw-bolder">¡Conoce a nuestros principales productos!</h1>
+{% endblock %}
+
+{% block contenidosQueVarian %}
+
+    {% if request.user.is_staff %}
+        <p class="">
+            <a href="{% url 'Producto_New'  %}">¡Agregar un nuevo producto!</a>
+        </p>
+    {% endif %}
+
+    
+    <ul>
+
+        <div class="row row-cols-1 row-cols-md-5 g-4">
+            {% for producto in object_list %}
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen.url }}" height="300em" alt="" class="card-img-top">
+                            {% else %}
+                                <img src="../../media/productos/producto_default.png" height="300em" alt="" class="card-img-top">
+                            {% endif %}    
+                            <h5 class="card-title">{{ producto.nombre_producto }} {{ producto.tamanio }}</h5>
+                            {% if request.user.is_authenticated %}
+                                <p class="card-text">Haz click en "Ver detalle" para ver más información.</p>
+                                <a href="{% url 'Producto_Detail' producto.id %}" class="btn btn-primary">Ver más</a>
+                                    {% if request.user.is_staff %}
+                                        <a href="{% url 'Producto_Edit' producto.id %}" class="btn btn-primary">Editar</a>
+                                        <a href="{% url 'Producto_Delete' producto.id %}" class="btn btn-secondary">Borrar</a>
+                                    {% endif %}
+                                {% else %}
+                                <p class="card-text">Iniciando sesión puedes acceder a más información.</p>
+                            {% endif %}                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </ul>
+
+{% endblock %}

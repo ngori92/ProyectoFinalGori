@@ -20,18 +20,14 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 
-                return render(request, "SupermercadoApp/index.html", {"mensaje":f"Bienvenido {usuario}!"})
-            else:
+                return render(request, "SupermercadoApp/index.html")
                 
-                return render(request, "SupermercadoApp/index.html", {"mensaje":"Error, datos incorrectos."})
-            
         else:
-            
-            return render(request, "SupermercadoApp/index.html", {"mensaje": "Error en el formulario."})
+            return render(request, "SupermercadoApp/index.html", {"form":form, "mensaje":"Datos incorrectos. Revisa el usuario y/o contraseña."})
 
     form = AuthenticationForm()
     
-    return render(request, "SupermercadoApp/login.html", {"form": form})
+    return render(request, "users/login.html", {"form": form})
 
 def register(request):
     
@@ -47,7 +43,7 @@ def register(request):
     else:
         form = UserRegisterForm()
         
-    return render(request, "SupermercadoApp/register.html", {"form":form})
+    return render(request, "users/register.html", {"form":form})
 
 @login_required
 def profileEdit(request):
@@ -61,12 +57,14 @@ def profileEdit(request):
         if form.is_valid():
             
             informacion = form.cleaned_data
-            print(f"\n\n {informacion} \n\n")
             usuario.email = informacion["email"]
+            
             if informacion["password1"]:
                 usuario.set_password = informacion["password1"]
-            usuario.last_name = informacion['last_name']
-            usuario.first_name = informacion['first_name']
+            if informacion["last_name"]:
+                usuario.last_name = informacion['last_name']
+            if informacion["last_name"]:
+                usuario.first_name = informacion['first_name']
             usuario.save()
             
             try:
@@ -75,8 +73,9 @@ def profileEdit(request):
                 avatar = Avatar(user=usuario, imagen=informacion["avatar"])
                 avatar.save()
             else:
-                avatar.imagen = informacion["avatar"]
-                avatar.save()
+                if informacion["avatar"]:
+                    avatar.imagen = informacion["avatar"]
+                    avatar.save()
 
             return render(request, "SupermercadoApp/index.html")
 
@@ -84,7 +83,7 @@ def profileEdit(request):
     else:
         form = UserEditForm(initial = {"email":usuario.email})
     
-    return render(request, "SupermercadoApp/profile-edit.html", {"form": form, "user":usuario})
+    return render(request, "users/profile-edit.html", {"form": form, "user":usuario})
 
 # @login_required
 # def agregarAvatar(request):
